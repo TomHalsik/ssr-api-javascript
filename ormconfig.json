@@ -1,0 +1,10 @@
+{
+    "type": "mysql",
+    "host": "mysql",
+    "port": 3306,
+    "username": "root",
+    "password": "password",
+    "database": "footedia",
+    "entities": ["src/**/**.entity{.ts,.js}"],
+    "synchronize": true
+  }
