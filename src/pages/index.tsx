@@ -1,6 +1,7 @@
 import { InferGetServerSidePropsType } from "next";
 import { AppController } from "../server/app/app.controller";
 import { Backend } from "../server/main";
+import Navigationbar from "../client/components/Navbar";
 
 export async function getServerSideProps() {
   const app = await Backend.getApp();
@@ -16,8 +17,9 @@ export async function getServerSideProps() {
 
 export default function GsspExample(props: InferGetServerSidePropsType<typeof getServerSideProps>) {
   return (
-    <p>
+    <div>
+      <Navigationbar />
       Random Number === {props.randomNumber}
-    </p>
+    </div>
   )
 }

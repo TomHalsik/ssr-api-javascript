@@ -6,5 +6,7 @@
     "password": "password",
     "database": "footedia",
     "entities": ["src/**/**.entity{.ts,.js}"],
-    "synchronize": true
+    "autoLoadEntities": true,
+    "synchronize": true,
+    "keepConnectionAlive": true
   }

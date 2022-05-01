@@ -11,6 +11,7 @@ export module Backend {
 
   export async function getApp() {
     if (!app) {
+      console.log("CREATE");
       app = await NestFactory.create(
         AppModule,
         { bodyParser: false }
@@ -24,6 +25,7 @@ export module Backend {
   }
 
   export async function getListener() {
+    console.log("LISTEN")
     const app = await getApp();
     const server: http.Server = app.getHttpServer();
     const [ listener ] = server.listeners("request") as NextApiHandler[];
