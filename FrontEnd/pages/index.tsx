@@ -9,7 +9,21 @@ import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import Link from "next/link";
 
-function Index() {
+export async function getServerSideProps() {
+  var test;
+  fetch('https://localhost:4444/api/test')
+    .then(response => response.json()
+    .then(json => test = json)
+    .catch(err => console.log('Request Failed', err));
+
+  return {
+    props: {
+      randomNumber: test,
+    },
+  };
+}
+
+function Index(props: InferGetServerSidePropsType<typeof getServerSideProps>) {
   return (
     <div>
       <Grid
@@ -24,13 +38,13 @@ function Index() {
               <CardMedia>
                 <img
                   style={{ width: "100%", height: "auto" }}
-                  src="http://localhost:3001/images/hero.jpg"
+                  src="http://localhost:4444/images/hero.jpg"
                   alt="Homepage"
                 />
               </CardMedia>
               <CardContent>
                 <Typography gutterBottom variant="h5" component="h2">
-                  Welcome to NestJS - NestJS Boilerplate
+                Random Number === {props.randomNumber}
                 </Typography>
                 <Typography variant="body2" color="textSecondary" component="p">
                   You are welcome to use it as a template for web apps using

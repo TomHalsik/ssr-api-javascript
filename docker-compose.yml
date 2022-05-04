@@ -1,8 +1,15 @@
 version: '3'
 services:
-    nextjs:
-        container_name: app
-        build: ./
+    frontend:
+        container_name: frontend
+        build: ./FrontEnd
+        ports:
+            - "3000:3000"
+    backend:
+        container_name: backend
+        build: ./BackEnd
+        ports:
+            - "4444:4444"
     nginx:
         container_name: nginx
         build: ./docker/nginx

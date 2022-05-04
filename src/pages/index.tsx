@@ -1,18 +1,13 @@
 import { InferGetServerSidePropsType } from "next";
-import { AppController } from "../server/app/app.controller";
-import { Backend } from "../server/main";
 import Navigationbar from "../client/components/Navbar";
 
 export async function getServerSideProps() {
-  const app = await Backend.getApp();
+  const response = await axios.get(`http://localhost:4444/api/test`);
+    const data = await res.json()
 
-  const controller = app.get(AppController);
-  
-  return {
-    props: {
-      randomNumber: controller.randomNumber()
+    return {
+        props: { menuItems: data },
     }
-  }
 }
 
 export default function GsspExample(props: InferGetServerSidePropsType<typeof getServerSideProps>) {

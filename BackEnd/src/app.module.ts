@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
-import { MongooseModule } from '@nestjs/mongoose';
+import { HttpModule } from "@nestjs/axios"
 
 require('dotenv').config();
 @Module({
   imports: [
-    MongooseModule.forRoot('mongodb://localhost/nest'),
+   HttpModule,
   ],
 })
 export class AppModule {}

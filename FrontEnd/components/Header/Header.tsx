@@ -4,8 +4,6 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Grid from "@material-ui/core/Grid";
 import Avatar from "@material-ui/core/Avatar";
 import { FilterVintage } from "@material-ui/icons";
-import MenuWithAvatar from "./MenuWithAvatar";
-import baseUrl from "../../lib/baseUrl";
 import { styledToolbar } from "../../lib/styles/styles";
 
 const optionsMenu = [
@@ -57,13 +55,7 @@ function Header({ user }) {
             {user ? (
               <div style={{ whiteSpace: "nowrap" }}>test</div>
             ) : (
-              <Link href="/signup">
-                <a
-                  style={{ margin: "0px 20px 0px auto", whiteSpace: "nowrap" }}
-                >
-                  Sign Up
-                </a>
-              </Link>
+              <Link href="/signup">Sign Up</Link>
             )}
           </Grid>
         </Grid>
