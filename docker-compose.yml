@@ -2,12 +2,12 @@ version: '3'
 services:
     frontend:
         container_name: frontend
-        build: ./FrontEnd
+        build: ./frontend
         ports:
             - "3000:3000"
     backend:
         container_name: backend
-        build: ./BackEnd
+        build: ./backend
         ports:
             - "4444:4444"
     nginx:
