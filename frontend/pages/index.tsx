@@ -12,20 +12,63 @@ import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import Link from "next/link";
 import { InferGetServerSidePropsType } from "next";
+import axios from "axios";
 import { notify } from "../components/Notifier";
 import Tabs from "../components/Utils/Tabs";
 
-export async function getServerSideProps() {
-  let test;
-  fetch("http://localhost:4444/api/test")
-    .then((response) => response.json())
-    .then((json) => (test = json))
-    .catch((err) => console.log("Request Failed", err));
-  console.log("test", test);
+function getMe() {
+  axios
+    .get("http://backend:4444/api/auth/me")
+    .then((response) => {
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+}
 
+function registerUser() {
+  const user = {
+    email: "toto@toto.toto",
+    firstName: "Thomas",
+    lastName: "Halsik",
+    password: "password",
+    passwordConfirmation: "password",
+  };
+  axios
+    .post("http://backend:4444/api/auth/register", user)
+    .then((response) => {
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+}
+
+const logUser = async () => {
+  const user = {
+    email: "toto@toto.toto",
+    password: "password",
+  };
+  const res = await axios
+    .post("http://backend:4444/api/auth/login", user)
+    .then((response) => {
+      return response.data;
+    })
+    .catch(function (error) {
+      console.log("error");
+    });
+
+  return res;
+};
+
+export async function getServerSideProps() {
+  const user = await logUser();
+  console.log(user.user.firstName);
+  //getMe();
   return {
     props: {
-      number: "oooh",
+      number: user.user.firstName,
     },
   };
 }
@@ -51,7 +94,7 @@ function Index(props: InferGetServerSidePropsType<typeof getServerSideProps>) {
               </CardMedia>
               <CardContent>
                 <Typography gutterBottom variant="h5" component="h2">
-                  Random Number === f
+                  Random Number === {props.number}
                 </Typography>
                 <Typography variant="body2" color="textSecondary" component="p">
                   You are welcome to use it as a template for web apps using
