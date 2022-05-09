@@ -39,7 +39,7 @@ function Header({ user }) {
         <Grid
           container
           direction="row"
-          justify="space-around"
+          justifyContent="space-around"
           alignItems="center"
         >
           <Grid item sm={11} xs={9} style={{ textAlign: "left" }}>

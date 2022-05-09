@@ -47,6 +47,6 @@ export class Notifier extends React.Component<any, any> {
   }
 }
 
-export function notify({ message }) {
+export function notify(message: string) {
   openNotifier({ message });
 }

@@ -7,11 +7,13 @@ services:
       - ./frontend:/usr/app
     ports:
       - "3000:3000"
+    command: "yarn dev"
   backend:
     container_name: backend
     build: ./backend
     ports:
       - "4444:4444"
+    command: "yarn start:dev"
   nginx:
     container_name: nginx
     build: ./docker/nginx

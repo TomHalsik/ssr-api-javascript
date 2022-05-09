@@ -49,6 +49,33 @@ class MyDocument extends Document {
                   opacity: 0.75;
                   cursor: pointer;
                   }
+                  li.tab-item {
+                    list-style-type: none;
+                    padding: 1rem 2rem;
+                    background-color: #b2beb5;
+                    font-weight: bold;
+                    text-transform: uppercase;
+                    letter-spacing: 0.1rem;
+                    cursor: pointer;
+                    transition: all 0.5s ease;
+                  }
+          
+                  li.tab-item:hover,
+                  li.tab-item.active {
+                    background-color: #76fa97;
+                  }
+                  .tab-list {
+                    padding: 0;
+                    display: flex;
+                  }
+          
+                  .tab-content {
+                    padding: 0 1rem;
+                  }
+          
+                  .tab-content p {
+                    text-align: justify;
+                  }
               `}
           </style>
         </Head>
