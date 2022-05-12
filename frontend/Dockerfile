@@ -17,7 +17,7 @@ RUN yarn install --production
 COPY ./ ./
 
 # Build app
-RUN export NODE_OPTIONS=--openssl-legacy-provider && yarn build
+RUN yarn build
 
 # Expose the listening port
 EXPOSE 3000

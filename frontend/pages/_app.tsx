@@ -11,12 +11,11 @@ import PropTypes, { any } from "prop-types";
 import { Provider } from "react-redux";
 import { ThemeProvider } from "@material-ui/styles";
 import { CssBaseline } from "@material-ui/core";
-import ConfigStore from "../lib/redux/configStore";
+import { store } from "../lib/redux/store";
 import Header from "../components/Header/Header";
 import theme from "../lib/styles/theme";
 import { Notifier } from "../components/Notifier";
 
-const store = ConfigStore();
 const propTypes = {
   Component: PropTypes.elementType.isRequired,
 };

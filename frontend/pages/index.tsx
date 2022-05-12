@@ -13,8 +13,6 @@ import Grid from "@material-ui/core/Grid";
 import Link from "next/link";
 import { InferGetServerSidePropsType } from "next";
 import axios from "axios";
-import { notify } from "../components/Notifier";
-import Tabs from "../components/Utils/Tabs";
 
 function getMe() {
   axios
@@ -64,7 +62,7 @@ const logUser = async () => {
 
 export async function getServerSideProps() {
   const user = await logUser();
-  console.log(user.user.firstName);
+  console.log(user.accessToken);
   //getMe();
   return {
     props: {
@@ -100,14 +98,6 @@ function Index(props: InferGetServerSidePropsType<typeof getServerSideProps>) {
                   You are welcome to use it as a template for web apps using
                   NextJS - NestJS stacks
                 </Typography>
-                <button
-                  type="button"
-                  onClick={() => {
-                    notify("Hello");
-                  }}
-                >
-                  Click
-                </button>
               </CardContent>
             </CardActionArea>
             <CardActions>
@@ -120,57 +110,6 @@ function Index(props: InferGetServerSidePropsType<typeof getServerSideProps>) {
             </CardActions>
           </Card>
         </Grid>
-
-        <Tabs>
-          <div title="about">
-            <h3>About me</h3>
-            <p>
-              I'm Mamadou Aliou Diallo a.k.a alioukahere. A Web Developer
-              (Python, PHP, JS, ...Web), Technical Writer, Passionate about
-              entrepreneurship, writing and teaching code. Currently working on
-              Kaherecode (
-              <a href="https://www.kaherecode.com">kaherecode.com</a>
-              ), an aspiring community for french developers, a web platform to
-              learn and share about programming.
-            </p>
-          </div>
-          <div title="experiences">
-            <h3>My experiences</h3>
-            <ul>
-              <li>
-                <strong>
-                  Web Full Stack Developer - Kewel (2019 - Present)
-                </strong>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
-                  porta, libero nec maximus varius, sapien lorem aliquet ex,
-                  quis faucibus odio lorem in quam.
-                </p>
-              </li>
-              <li>
-                <strong>
-                  Web Full Stack Developer - Qualshore (2017 - 2019)
-                </strong>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
-                  porta, libero nec maximus varius, sapien lorem aliquet ex,
-                  quis faucibus odio lorem in quam.
-                </p>
-              </li>
-            </ul>
-          </div>
-          <div title="contact">
-            <h3>Get in touch</h3>
-            <p>
-              <strong>Mail</strong>:{" "}
-              <a href="mailto:aliou.diallo@kaherecode.com">
-                aliou.diallo@kaherecode.com
-              </a>{" "}
-              <br />
-              <strong>Adress</strong>:Dakar, Senegal
-            </p>
-          </div>
-        </Tabs>
       </Grid>
     </div>
   );

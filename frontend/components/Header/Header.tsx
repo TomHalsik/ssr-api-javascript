@@ -1,70 +1,61 @@
-import PropTypes from "prop-types";
-import Link from "next/link";
+import React, { useState } from "react";
+import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
+import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
-import Grid from "@material-ui/core/Grid";
-import Avatar from "@material-ui/core/Avatar";
-import { FilterVintage } from "@material-ui/icons";
-import { styledToolbar } from "../../lib/styles/styles";
+import Typography from "@material-ui/core/Typography";
+import Button from "@material-ui/core/Button";
+import IconButton from "@material-ui/core/IconButton";
+import MenuIcon from "@material-ui/icons/Menu";
+import Link from "next/link";
+import { RootState } from "../../lib/redux/store";
+import { useSelector } from "react-redux";
 
-const optionsMenu = [
-  {
-    text: "Source Code",
-    href: "https://github.com/huyenNguyen20",
-  },
-  {
-    text: "My Account",
-    href: "/profile",
-  },
-  {
-    text: "Log out",
-    href: `/logout`,
-  },
-];
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      flexGrow: 1,
+    },
+    menuButton: {
+      marginRight: theme.spacing(2),
+    },
+    title: {
+      flexGrow: 1,
+    },
+  })
+);
 
-const propTypes = {
-  user: PropTypes.shape({
-    avatarUrl: PropTypes.string,
-    displayName: PropTypes.string,
-  }),
-};
+export default function ButtonAppBar() {
+  const classes = useStyles();
+  const [isOpen, setIsOpen] = useState(false);
+  const user = useSelector((state: RootState) => state.user.value);
+  console.log(user);
 
-const defaultProps = {
-  user: null,
-};
-
-function Header({ user }) {
   return (
-    <div>
-      <Toolbar style={styledToolbar}>
-        <Grid
-          container
-          direction="row"
-          justifyContent="space-around"
-          alignItems="center"
-        >
-          <Grid item sm={11} xs={9} style={{ textAlign: "left" }}>
-            {user ? null : (
-              <Link href="/">
-                <Avatar>
-                  <FilterVintage />
-                </Avatar>
-              </Link>
-            )}
-          </Grid>
-          <Grid item sm={1} xs={3} style={{ textAlign: "right" }}>
-            {user ? (
-              <div style={{ whiteSpace: "nowrap" }}>test</div>
-            ) : (
-              <Link href="/signup">Sign Up</Link>
-            )}
-          </Grid>
-        </Grid>
-      </Toolbar>
+    <div className={classes.root}>
+      <AppBar position="static">
+        <Toolbar>
+          <IconButton
+            edge="start"
+            className={classes.menuButton}
+            color="inherit"
+            aria-label="menu"
+            onClick={() => {
+              setIsOpen(!isOpen);
+            }}
+          >
+            <MenuIcon />
+          </IconButton>
+          <Typography variant="h6" className={classes.title}>
+            News
+          </Typography>
+          <Button color="inherit">
+            <Link href="/">Accueil</Link>
+          </Button>
+          <Button color="inherit">
+            <Link href="/login">Login</Link>
+          </Button>
+        </Toolbar>
+      </AppBar>
     </div>
   );
 }
-
-Header.propTypes = propTypes;
-Header.defaultProps = defaultProps;
-
-export default Header;
