@@ -9,6 +9,8 @@ import MenuIcon from "@material-ui/icons/Menu";
 import Link from "next/link";
 import { RootState } from "../../lib/redux/store";
 import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { logout } from "../../lib/redux/user/userStore";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -27,7 +29,8 @@ const useStyles = makeStyles((theme: Theme) =>
 export default function ButtonAppBar() {
   const classes = useStyles();
   const [isOpen, setIsOpen] = useState(false);
-  const user = useSelector((state: RootState) => state.user.value);
+  let user = useSelector((state: RootState) => state.userStore.value);
+  const dispatch = useDispatch();
   console.log(user);
 
   return (
@@ -48,12 +51,25 @@ export default function ButtonAppBar() {
           <Typography variant="h6" className={classes.title}>
             News
           </Typography>
-          <Button color="inherit">
-            <Link href="/">Accueil</Link>
-          </Button>
-          <Button color="inherit">
-            <Link href="/login">Login</Link>
-          </Button>
+          <div style={{ textAlign: "right", width: "-webkit-fill-available" }}>
+            <Button color="inherit">
+              <Link href="/">Accueil</Link>
+            </Button>
+            {!user ? (
+              <Button color="inherit">
+                <Link href="/login">Login</Link>
+              </Button>
+            ) : (
+              <Button
+                onClick={() => {
+                  dispatch(logout());
+                }}
+                color="inherit"
+              >
+                Logout
+              </Button>
+            )}
+          </div>
         </Toolbar>
       </AppBar>
     </div>

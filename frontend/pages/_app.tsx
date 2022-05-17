@@ -12,9 +12,13 @@ import { Provider } from "react-redux";
 import { ThemeProvider } from "@material-ui/styles";
 import { CssBaseline } from "@material-ui/core";
 import { store } from "../lib/redux/store";
-import Header from "../components/Header/Header";
+import Navbar from "../components/Navbar/Navbar";
 import theme from "../lib/styles/theme";
 import { Notifier } from "../components/Notifier";
+import { persistStore } from "redux-persist";
+import { PersistGate } from "redux-persist/integration/react";
+
+let persistor = persistStore(store);
 
 const propTypes = {
   Component: PropTypes.elementType.isRequired,
@@ -31,18 +35,20 @@ class MyApp extends App<any, any> {
     const { Component, pageProps } = this.props;
     return (
       <Provider store={store}>
-        <ThemeProvider theme={theme}>
-          <Head>
-            <meta
-              name="viewport"
-              content="width=device-width, initial-scale=1.0"
-            />
-          </Head>
-          <CssBaseline />
-          <Header {...pageProps} />
-          <Component {...pageProps} />
-          <Notifier />
-        </ThemeProvider>
+        <PersistGate persistor={persistor}>
+          <ThemeProvider theme={theme}>
+            <Head>
+              <meta
+                name="viewport"
+                content="width=device-width, initial-scale=1.0"
+              />
+            </Head>
+            <CssBaseline />
+            <Navbar {...pageProps} />
+            <Component {...pageProps} />
+            <Notifier />
+          </ThemeProvider>
+        </PersistGate>
       </Provider>
     );
   }

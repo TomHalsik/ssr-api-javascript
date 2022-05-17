@@ -7,19 +7,26 @@ import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
-import axios from "axios";
 import * as classes from "../lib/styles/styles";
 import API from "../lib/api/API";
 import { login } from "../lib/redux/user/userStore";
 import { useDispatch } from "react-redux";
 import { RootState } from "../lib/redux/store";
 import { useSelector } from "react-redux";
+import Router from "next/router";
+import { store } from "../lib/redux/store";
 
 export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const user = useSelector((state: RootState) => state.user.value);
+  const user = useSelector((state: RootState) => state.userStore.value);
   const dispatch = useDispatch();
+
+  console.log(user);
+
+  const redirectToHome = () => {
+    Router.push("/");
+  };
 
   const logUser = async () => {
     const user = {
@@ -28,7 +35,6 @@ export default function Login() {
     };
     const res = await API.post("http://127.0.0.1:4444/api/auth/login", user);
 
-    console.log(res);
     return res;
   };
 
@@ -41,13 +47,7 @@ export default function Login() {
   };
 
   const isValid = () => {
-    if (!username) {
-      return false;
-    }
-    if (!password) {
-      return false;
-    }
-    return true;
+    return username && password ? true : false;
   };
 
   const handleSubmit = async (e) => {
@@ -55,7 +55,10 @@ export default function Login() {
     e.preventDefault();
     if (isValid()) {
       const user = await logUser();
-      dispatch(login(user));
+      if (user) {
+        dispatch(login(user));
+        redirectToHome();
+      }
     } else {
       console.log("Err");
     }
