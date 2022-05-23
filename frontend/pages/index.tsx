@@ -13,6 +13,9 @@ import Grid from "@material-ui/core/Grid";
 import Link from "next/link";
 import { InferGetServerSidePropsType } from "next";
 import axios from "axios";
+import { useSelector } from "react-redux";
+import { RootState } from "../lib/redux/store";
+import { store } from "../lib/redux/store";
 
 function getMe() {
   axios
@@ -25,53 +28,20 @@ function getMe() {
     });
 }
 
-function registerUser() {
-  const user = {
-    email: "toto@toto.toto",
-    firstName: "Thomas",
-    lastName: "Halsik",
-    password: "password",
-    passwordConfirmation: "password",
-  };
-  axios
-    .post("http://backend:4444/api/auth/register", user)
-    .then((response) => {
-      console.log(response);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-}
-
-const logUser = async () => {
-  const user = {
-    email: "toto@toto.toto",
-    password: "password",
-  };
-  const res = await axios
-    .post("http://backend:4444/api/auth/login", user)
-    .then((response) => {
-      return response.data;
-    })
-    .catch(function (error) {
-      console.log("error");
-    });
-
-  return res;
-};
-
 export async function getServerSideProps() {
-  const user = await logUser();
-  console.log(user.accessToken);
+  let state = store.getState();
+  console.log("PROPS", state);
   //getMe();
   return {
     props: {
-      number: user.user.firstName,
+      user: state.userStore,
     },
   };
 }
 
 function Index(props: InferGetServerSidePropsType<typeof getServerSideProps>) {
+  let user = useSelector((state: RootState) => state.userStore.value);
+  console.log("USER", user);
   return (
     <div>
       <Grid
@@ -86,13 +56,13 @@ function Index(props: InferGetServerSidePropsType<typeof getServerSideProps>) {
               <CardMedia>
                 <img
                   style={{ width: "100%", height: "auto" }}
-                  src="http://localhost:4444/images/hero.jpg"
+                  src="images/stickyNote.jpg"
                   alt="Homepage"
                 />
               </CardMedia>
               <CardContent>
                 <Typography gutterBottom variant="h5" component="h2">
-                  Random Number === {props.number}
+                  Random Number === {props.user.email}
                 </Typography>
                 <Typography variant="body2" color="textSecondary" component="p">
                   You are welcome to use it as a template for web apps using

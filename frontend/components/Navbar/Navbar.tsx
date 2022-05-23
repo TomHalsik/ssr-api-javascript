@@ -1,27 +1,28 @@
 import React, { useState } from "react";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import Button from "@material-ui/core/Button";
 import Link from "next/link";
 import { RootState } from "../../lib/redux/store";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { logout } from "../../lib/redux/user/userStore";
-import { Drawer } from "@material-ui/core";
-import List from "@material-ui/core/List";
-import Typography from "@material-ui/core/Typography";
-import Divider from "@material-ui/core/Divider";
-import IconButton from "@material-ui/core/IconButton";
+import {
+  Drawer,
+  useMediaQuery,
+  List,
+  AppBar,
+  Toolbar,
+  Button,
+  Typography,
+  Divider,
+  IconButton,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+} from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
-import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
-import ChevronRightIcon from "@material-ui/icons/ChevronRight";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
-import InboxIcon from "@material-ui/icons/MoveToInbox";
-import MailIcon from "@material-ui/icons/Mail";
-import clsx from "clsx";
+import HomeIcon from "@material-ui/icons/Home";
+import theme from "../../lib/styles/theme";
+import LoginMenu from "./LoginMenu";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -29,16 +30,16 @@ const useStyles = makeStyles((theme: Theme) =>
       flexGrow: 1,
     },
     menuButton: {
-      marginRight: theme.spacing(2),
+      marginRight: "-15px",
     },
     title: {
       flexGrow: 1,
     },
     overDrawer: {
-      zIndex: theme.zIndex.drawer + 1,
+      zIndex: theme.zIndex.drawer + 1000,
     },
     appBar: {
-      zIndex: theme.zIndex.drawer + 1,
+      zIndex: theme.zIndex.drawer + 1000,
       transition: theme.transitions.create(["margin", "width"], {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,
@@ -51,87 +52,106 @@ const useStyles = makeStyles((theme: Theme) =>
       ...theme.mixins.toolbar,
       justifyContent: "flex-end",
     },
+    computerMenu: {
+      width: "100%",
+      display: "flex",
+      justifyContent: "center",
+    },
   })
 );
 
 export default function ButtonAppBar() {
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const computerScreen = useMediaQuery(theme.breakpoints.up("sm"));
   const [isOpen, setIsOpen] = useState(false);
 
   let user = useSelector((state: RootState) => state.userStore.value);
-  const dispatch = useDispatch();
-  console.log(user);
+
+  console.log(">>>", user);
 
   return (
     <div className={classes.root}>
       <AppBar position="static" className={classes.appBar}>
         <Toolbar className={classes.overDrawer}>
-          <IconButton
-            edge="start"
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="menu"
-            onClick={() => {
-              setIsOpen(!isOpen);
-            }}
-          >
-            <MenuIcon />
-          </IconButton>
           <Typography variant="h6" className={classes.title}>
-            News
+            Title
           </Typography>
-          <div style={{ textAlign: "right", width: "-webkit-fill-available" }}>
-            <Button color="inherit">
-              <Link href="/">Accueil</Link>
-            </Button>
-            {!user ? (
-              <Button color="inherit">
-                <Link href="/login">Login</Link>
-              </Button>
-            ) : (
-              <Button
-                onClick={() => {
-                  dispatch(logout());
-                }}
-                color="inherit"
-              >
-                Logout
-              </Button>
-            )}
-          </div>
+          {computerScreen && (
+            <>
+              <div className={classes.computerMenu}>
+                <Button color="inherit">
+                  <Link href="/">Accueil</Link>
+                </Button>
+              </div>
+              <div>
+                <LoginMenu />
+              </div>
+            </>
+          )}
+          {!computerScreen && (
+            <IconButton
+              edge="start"
+              className={classes.menuButton}
+              color="inherit"
+              aria-label="menu"
+              onClick={() => {
+                setIsOpen(!isOpen);
+              }}
+            >
+              <MenuIcon />
+            </IconButton>
+          )}
         </Toolbar>
       </AppBar>
       <Drawer
-        className={classes.drawer}
-        variant="persistent"
+        variant="temporary"
         anchor="top"
         open={isOpen}
-        classes={{
-          paper: classes.drawerPaper,
-        }}
+        onClick={() => setIsOpen(!isOpen)}
       >
         <div className={classes.drawerHeader}></div>
         <Divider />
         <List>
-          {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-            <ListItem button key={text}>
+          <Link href="/">
+            <ListItem button>
               <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                <HomeIcon />
               </ListItemIcon>
-              <ListItemText primary={text} />
+              <ListItemText primary={"Accueil"} />
             </ListItem>
-          ))}
+          </Link>
+          <ListItem button>
+            <ListItemIcon>
+              <HomeIcon />
+            </ListItemIcon>
+            <ListItemText primary={"test"} />
+          </ListItem>
         </List>
         <Divider />
         <List>
-          {["All mail", "Trash", "Spam"].map((text, index) => (
-            <ListItem button key={text}>
+          {!user ? (
+            <Link href="/login">
+              <ListItem button>
+                <ListItemIcon>
+                  <HomeIcon />
+                </ListItemIcon>
+                <ListItemText primary={"Login"} />
+              </ListItem>
+            </Link>
+          ) : (
+            <ListItem
+              button
+              onClick={() => {
+                dispatch(logout());
+              }}
+            >
               <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                <HomeIcon />
               </ListItemIcon>
-              <ListItemText primary={text} />
+              <ListItemText primary={"Logout"} />
             </ListItem>
-          ))}
+          )}
         </List>
       </Drawer>
     </div>

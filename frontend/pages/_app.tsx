@@ -10,13 +10,13 @@ import React from "react";
 import PropTypes, { any } from "prop-types";
 import { Provider } from "react-redux";
 import { ThemeProvider } from "@material-ui/styles";
-import { CssBaseline } from "@material-ui/core";
+import { Container, CssBaseline } from "@material-ui/core";
 import { store } from "../lib/redux/store";
 import Navbar from "../components/Navbar/Navbar";
 import theme from "../lib/styles/theme";
-import { Notifier } from "../components/Notifier";
 import { persistStore } from "redux-persist";
 import { PersistGate } from "redux-persist/integration/react";
+import StickyFooter from "../components/Footer/Footer";
 
 let persistor = persistStore(store);
 
@@ -45,8 +45,10 @@ class MyApp extends App<any, any> {
             </Head>
             <CssBaseline />
             <Navbar {...pageProps} />
-            <Component {...pageProps} />
-            <Notifier />
+            <Container style={{ minHeight: "100vh" }}>
+              <Component {...pageProps} />
+            </Container>
+            <StickyFooter />
           </ThemeProvider>
         </PersistGate>
       </Provider>
