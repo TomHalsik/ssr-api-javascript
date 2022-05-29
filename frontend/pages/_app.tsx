@@ -17,6 +17,8 @@ import theme from "../lib/styles/theme";
 import { persistStore } from "redux-persist";
 import { PersistGate } from "redux-persist/integration/react";
 import StickyFooter from "../components/Footer/Footer";
+import "../lib/styles/app.css";
+import AdminLayout from "../components/Layout/Admin";
 
 let persistor = persistStore(store);
 
@@ -44,11 +46,7 @@ class MyApp extends App<any, any> {
               />
             </Head>
             <CssBaseline />
-            <Navbar {...pageProps} />
-            <Container style={{ minHeight: "100vh" }}>
-              <Component {...pageProps} />
-            </Container>
-            <StickyFooter />
+            <AdminLayout {...pageProps} />
           </ThemeProvider>
         </PersistGate>
       </Provider>

@@ -20,9 +20,11 @@ import VpnKeyIcon from "@material-ui/icons/VpnKey";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import PersonIcon from "@material-ui/icons/Person";
 import PersonOutlineIcon from "@material-ui/icons/PersonOutline";
+import theme from "../../lib/styles/theme";
 
 const StyledMenu = withStyles({
   paper: {
+    zIndex: theme.zIndex.drawer + 2000,
     border: "1px solid #d3d4d5",
   },
 })((props: MenuProps) => (
@@ -36,6 +38,11 @@ const StyledMenu = withStyles({
     transformOrigin={{
       vertical: "top",
       horizontal: "center",
+    }}
+    PaperProps={{
+      style: {
+        zIndex: 2000,
+      },
     }}
     {...props}
   />
@@ -52,8 +59,6 @@ export default function LoginMenu() {
 
   let user = useSelector((state: RootState) => state.userStore.value);
 
-  console.log("HERE >>", user);
-
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setOpen(!open);
     setAnchorEl(event.currentTarget);
@@ -67,11 +72,19 @@ export default function LoginMenu() {
   return (
     <div>
       <IconButton onClick={handleClick}>
-        {user ? (
-          <PersonIcon fontSize="large" />
-        ) : (
-          <PersonOutlineIcon fontSize="large" />
-        )}
+        {user
+          ? [
+              <PersonIcon
+                fontSize="large"
+                color={open ? "primary" : "inherit"}
+              />,
+            ]
+          : [
+              <PersonOutlineIcon
+                fontSize="large"
+                color={open ? "primary" : "inherit"}
+              />,
+            ]}
       </IconButton>
       <StyledMenu
         id="menu-list-grow"
@@ -88,7 +101,7 @@ export default function LoginMenu() {
                     handleClose();
                   }}
                 >
-                  <ListItemIcon>
+                  <ListItemIcon key="myAccount">
                     <AccountBoxIcon fontSize="small" />
                   </ListItemIcon>
                   <ListItemText primary="Mon compte" />
@@ -98,12 +111,13 @@ export default function LoginMenu() {
                     handleClose();
                   }}
                 >
-                  <ListItemIcon>
+                  <ListItemIcon key="changePassword">
                     <VpnKeyIcon fontSize="small" />
                   </ListItemIcon>
                   <ListItemText primary="Changer mon mot de passe" />
                 </StyledMenuItem>
                 <StyledMenuItem
+                  key="logout"
                   onClick={() => {
                     dispatch(logout());
                     handleClose();
@@ -120,6 +134,7 @@ export default function LoginMenu() {
               <>
                 <Link href="/login">
                   <StyledMenuItem
+                    key="login"
                     onClick={() => {
                       handleClose();
                     }}
@@ -131,6 +146,7 @@ export default function LoginMenu() {
                   </StyledMenuItem>
                 </Link>
                 <StyledMenuItem
+                  key="sigin"
                   onClick={() => {
                     handleClose();
                   }}
