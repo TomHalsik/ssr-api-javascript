@@ -1,9 +1,3 @@
-// core components
-import Dashboard from "../../views/Dashboard.js";
-import Icons from "../../views/Icons.js";
-import Maps from "../../views/Maps.js";
-import Profile from "../../views/Profile.js";
-import Tables from "../../views/Tables.js";
 // @material-ui/icons components
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import Dns from "@material-ui/icons/Dns";
@@ -18,17 +12,10 @@ import VpnKey from "@material-ui/icons/VpnKey";
 
 var routes = [
   {
-    href: "#pablo",
-    name: "Upgrade to pro",
-    icon: FlashOn,
-    upgradeToPro: true,
-  },
-  {
     path: "/index",
     name: "Dashboard",
     icon: Tv,
     iconColor: "Primary",
-    component: Dashboard,
     layout: "/admin",
   },
   {
@@ -36,7 +23,6 @@ var routes = [
     name: "Icons",
     icon: Grain,
     iconColor: "Primary",
-    component: Icons,
     layout: "/admin",
   },
   {
@@ -44,7 +30,6 @@ var routes = [
     name: "Maps",
     icon: LocationOn,
     iconColor: "Warning",
-    component: Maps,
     layout: "/admin",
   },
   {
@@ -52,7 +37,6 @@ var routes = [
     name: "User Profile",
     icon: Person,
     iconColor: "WarningLight",
-    component: Profile,
     layout: "/admin",
   },
   {
@@ -60,7 +44,6 @@ var routes = [
     name: "Tables",
     icon: FormatListBulleted,
     iconColor: "Error",
-    component: Tables,
     layout: "/admin",
   },
   {

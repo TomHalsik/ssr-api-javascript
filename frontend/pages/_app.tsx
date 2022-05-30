@@ -34,7 +34,7 @@ class MyApp extends App<any, any> {
   }
 
   render() {
-    const { Component, pageProps } = this.props;
+    const props = this.props;
     return (
       <Provider store={store}>
         <PersistGate persistor={persistor}>
@@ -46,7 +46,8 @@ class MyApp extends App<any, any> {
               />
             </Head>
             <CssBaseline />
-            <AdminLayout {...pageProps} />
+            <AdminLayout {...props} />
+            <StickyFooter />
           </ThemeProvider>
         </PersistGate>
       </Provider>

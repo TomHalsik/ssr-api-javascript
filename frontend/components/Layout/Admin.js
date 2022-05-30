@@ -11,90 +11,66 @@ import OutlinedInput from "@material-ui/core/OutlinedInput";
 import Search from "@material-ui/icons/Search";
 
 // core components
-import AdminNavbar from "../Navbars/AdminNavbar.js";
-import AdminFooter from "../Footers/AdminFooter.js";
 import Sidebar from "../Sidebar/Sidebar.js";
 import NavbarDropdown from "../Dropdowns/NavbarDropdown.js";
 
 import routes from "../../lib/routes/routes";
 
-import componentStyles from "../../assets/theme/layouts/admin.js";
+const useStyles = makeStyles((theme) => ({
+  mainContent: {
+    marginLeft: "250px",
+    [theme.breakpoints.down("md")]: {
+      marginLeft: "0px",
+    },
+  },
+  containerRoot: {
+    [theme.breakpoints.up("md")]: {
+      paddingLeft: "39px",
+      paddingRight: "39px",
+    },
+  },
+}));
 
-const useStyles = makeStyles(componentStyles);
-
-const Admin = () => {
+const Admin = (props) => {
   const classes = useStyles();
+  const { Component, pageProps } = props;
 
   React.useEffect(() => {
     document.documentElement.scrollTop = 0;
     document.scrollingElement.scrollTop = 0;
     // mainContent.current.scrollTop = 0;
-  }, [location]);
-
-  const getRoutes = (routes) => {
-    return routes.map((prop, key) => {
-      if (prop.layout === "/admin") {
-        return (
-          <Route
-            path={prop.layout + prop.path}
-            component={prop.component}
-            key={key}
-          />
-        );
-      } else {
-        return null;
-      }
-    });
-  };
-
-  const getBrandText = () => {
-    for (let i = 0; i < routes.length; i++) {
-      if (location.pathname.indexOf(routes[i].layout + routes[i].path) !== -1) {
-        return routes[i].name;
-      }
-    }
-    return "Brand";
-  };
+  });
 
   return (
     <>
-      <>
-        <Sidebar
-          routes={routes}
-          dropdown={<NavbarDropdown />}
-          input={
-            <FormControl variant="outlined" fullWidth>
-              <InputLabel htmlFor="outlined-adornment-search-responsive">
-                Search
-              </InputLabel>
-              <OutlinedInput
-                id="outlined-adornment-search-responsive"
-                type="text"
-                endAdornment={
-                  <InputAdornment position="end">
-                    <Box
-                      component={Search}
-                      width="1.25rem!important"
-                      height="1.25rem!important"
-                    />
-                  </InputAdornment>
-                }
-                labelWidth={70}
-              />
-            </FormControl>
-          }
-        />
-        <Box position="relative" className={classes.mainContent}>
-          <AdminNavbar brandText={getBrandText(location.pathname)} />
-          <Container
-            maxWidth={false}
-            component={Box}
-            classes={{ root: classes.containerRoot }}
-          >
-            <AdminFooter />
-          </Container>
-        </Box>
-      </>
+      <Sidebar
+        routes={routes}
+        dropdown={<NavbarDropdown />}
+        input={
+          <FormControl variant="outlined" fullWidth>
+            <InputLabel htmlFor="outlined-adornment-search-responsive">
+              Search
+            </InputLabel>
+            <OutlinedInput
+              id="outlined-adornment-search-responsive"
+              type="text"
+              endAdornment={
+                <InputAdornment position="end">
+                  <Box
+                    component={Search}
+                    width="1.25rem!important"
+                    height="1.25rem!important"
+                  />
+                </InputAdornment>
+              }
+              labelWidth={70}
+            />
+          </FormControl>
+        }
+      />
+      <div className={classes.mainContent}>
+        <Component {...pageProps} />
+      </div>
     </>
   );
 };

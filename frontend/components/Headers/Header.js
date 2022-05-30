@@ -16,9 +16,24 @@ import PieChart from "@material-ui/icons/PieChart";
 // core components
 import CardStats from "../Cards/CardStats.js";
 
-import componentStyles from "../../assets/theme/components/header.js";
-
-const useStyles = makeStyles(componentStyles);
+const useStyles = makeStyles((theme) => ({
+  header: {
+    position: "relative",
+    background:
+      "linear-gradient(87deg," + theme.palette.info.main + ",#1171ef)",
+    paddingBottom: "8rem",
+    paddingTop: "3rem",
+    [theme.breakpoints.up("md")]: {
+      paddingTop: "8rem",
+    },
+  },
+  containerRoot: {
+    [theme.breakpoints.up("md")]: {
+      paddingLeft: "39px",
+      paddingRight: "39px",
+    },
+  },
+}));
 
 const Header = () => {
   const classes = useStyles();
@@ -31,6 +46,7 @@ const Header = () => {
           component={Box}
           classes={{ root: classes.containerRoot }}
         >
+          *EH OH
           <div>
             <Grid container>
               <Grid item xl={3} lg={6} xs={12}>

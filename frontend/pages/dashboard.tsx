@@ -37,7 +37,7 @@ function Dashboard() {
     setActiveNav(index);
   };
   return (
-    <>
+    <div>
       <Header />
       {/* Page content */}
       <Container
@@ -743,7 +743,7 @@ function Dashboard() {
           </Grid>
         </Grid>
       </Container>
-    </>
+    </div>
   );
 }
 

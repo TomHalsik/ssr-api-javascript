@@ -32,18 +32,6 @@ const useStyles = makeStyles((theme) => ({
       color: theme.palette.sidebarLinks.dark,
     },
   },
-  listItemRootUpgradeToPro: {
-    [theme.breakpoints.up("md")]: {
-      position: "absolute",
-      bottom: "10px",
-    },
-    "&,&:hover": {
-      background: theme.palette.gray[100] + "!important",
-    },
-    "&:before": {
-      display: "none",
-    },
-  },
   listItemSelected: {
     color: theme.palette.sidebarLinks.dark,
     "&$listItemRoot,&$listItemRoot:hover": {
@@ -210,9 +198,7 @@ export default function Sidebar({ routes, logo, dropdown, input }) {
         return (
           <ListItem
             key={key}
-            component={"a"}
             onClick={handleMenuClose}
-            href={prop.layout + prop.path}
             classes={{
               root:
                 classes.listItemRoot +
@@ -221,12 +207,25 @@ export default function Sidebar({ routes, logo, dropdown, input }) {
                   : ""),
               selected: classes.listItemSelected,
             }}
-            selected={
-              location.pathname === prop.layout + prop.path ||
-              prop.upgradeToPro === true
-            }
+            selected={location.pathname === prop.path}
           >
-            {textContent}
+            <Box minWidth="2.25rem" display="flex" alignItems="center">
+              {typeof prop.icon === "string" ? (
+                <Box
+                  component="i"
+                  className={prop.icon + " " + classes["text" + prop.iconColor]}
+                />
+              ) : null}
+              {typeof prop.icon === "object" ? (
+                <Box
+                  component={prop.icon}
+                  width="1.25rem!important"
+                  height="1.25rem!important"
+                  className={classes["text" + prop.iconColor]}
+                />
+              ) : null}
+            </Box>
+            <Link href={prop.path}>{prop.name}</Link>
           </ListItem>
         );
       }
@@ -245,7 +244,7 @@ export default function Sidebar({ routes, logo, dropdown, input }) {
     ) : null;
   return (
     <>
-      <Hidden smDown implementation="css">
+      <Hidden mdDown implementation="css">
         <Drawer variant="permanent" anchor="left" open>
           <Box paddingBottom="1rem">{logoObject}</Box>
           <List classes={{ root: classes.listRoot }}>
@@ -253,7 +252,7 @@ export default function Sidebar({ routes, logo, dropdown, input }) {
           </List>
         </Drawer>
       </Hidden>
-      <Hidden mdUp implementation="css">
+      <Hidden lgUp implementation="css">
         <AppBar position="relative" color="default" elevation={0}>
           <Toolbar>
             <Container
