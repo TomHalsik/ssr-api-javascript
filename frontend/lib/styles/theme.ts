@@ -1,9 +1,9 @@
 import { createTheme } from "@material-ui/core/styles";
 
 // core components
-import boxShadows from "../../assets/theme/box-shadow.js";
-import hexToRgb from "../../assets/theme/hex-to-rgb.js";
-import themeColors from "../../assets/theme/colors.js";
+import boxShadows from "./box-shadow.js";
+import hexToRgb from "./hex-to-rgb.js";
+import themeColors from "./colors.js";
 
 // these are the default styles that go on all headings (h1,h2,h3,h4,h5,h6)
 // the difference only consists in the font size and text transform

@@ -16,7 +16,6 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import { RootState } from "../lib/redux/store";
 import { store } from "../lib/redux/store";
-import AdminLayout from "../components/Layout/Admin";
 
 function getMe() {
   axios

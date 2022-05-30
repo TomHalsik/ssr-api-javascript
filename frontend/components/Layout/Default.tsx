@@ -2,17 +2,19 @@ import React from "react";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 import Box from "@material-ui/core/Box";
-import Container from "@material-ui/core/Container";
 import FormControl from "@material-ui/core/FormControl";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import InputLabel from "@material-ui/core/InputLabel";
 import OutlinedInput from "@material-ui/core/OutlinedInput";
+import Container from "@material-ui/core/Container";
 // @material-ui/icons components
 import Search from "@material-ui/icons/Search";
 
 // core components
-import Sidebar from "../Sidebar/Sidebar.js";
-import NavbarDropdown from "../Dropdowns/NavbarDropdown.js";
+import Sidebar from "../Sidebar/Sidebar";
+import NavbarDropdown from "../Dropdowns/NavbarDropdown";
+import Navbar from "../Navbars/Navbar";
+import Footer from "../Footers/Footer";
 
 import routes from "../../lib/routes/routes";
 
@@ -31,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Admin = (props) => {
+const Default = (props) => {
   const classes = useStyles();
   const { Component, pageProps } = props;
 
@@ -68,11 +70,21 @@ const Admin = (props) => {
           </FormControl>
         }
       />
+      <Box position="relative" className={classes.mainContent}>
+        <Navbar brandText={"test"} />
+      </Box>
       <div className={classes.mainContent}>
         <Component {...pageProps} />
+        <Container
+          maxWidth={false}
+          component={Box}
+          classes={{ root: classes.containerRoot }}
+        >
+          <Footer />
+        </Container>
       </div>
     </>
   );
 };
 
-export default Admin;
+export default Default;

@@ -3,31 +3,60 @@ import React from "react";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 import Box from "@material-ui/core/Box";
-import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 
-// core components
-import componentStyles from "../../assets/theme/components/auth-footer.js";
-
-const useStyles = makeStyles(componentStyles);
+const useStyles = makeStyles((theme) => ({
+  listItemRoot: {
+    width: "auto",
+    color: theme.palette.gray[600],
+    fontSize: ".875rem",
+  },
+  copyrightWrapper: {
+    color: theme.palette.gray[600],
+    fontSize: ".875rem",
+    textAlign: "center",
+    [theme.breakpoints.up("md")]: {
+      textAlign: "left",
+    },
+  },
+  copyrightLink: {
+    fontWeight: "600",
+    marginLeft: ".25rem",
+    color: theme.palette.primary.main,
+    backgroundColor: "initial",
+    textDecoration: "none",
+    "&:hover": {
+      color: theme.palette.primary.dark,
+    },
+  },
+  justifyContentCenter: {
+    [theme.breakpoints.down("lg")]: {
+      justifyContent: "center!important",
+    },
+  },
+  flexDirectionColumn: {
+    [theme.breakpoints.down("sm")]: {
+      flexDirection: "column!important",
+    },
+  },
+}));
 
 const Footer = () => {
   const classes = useStyles();
   return (
-    <Box component="footer" width="100%" paddingTop="1rem">
-      <Container
-        component={Box}
-        maxWidth="xl"
-        display="flex!important"
-        alignItems="center"
-        classes={{
-          root:
-            classes.justifyContentCenter + " " + classes.flexDirectionColumn,
-        }}
-      >
-        <Grid item xs={12} xl={6}>
+    <Box component="footer" width="100%" padding="2.5rem 0">
+      <Grid container classes={{ root: classes.justifyContentCenter }}>
+        <Box
+          item
+          xs={12}
+          xl={6}
+          component={Grid}
+          display="flex"
+          alignItems="center"
+          className={classes.justifyContentCenter}
+        >
           <div className={classes.copyrightWrapper}>
             © {new Date().getFullYear()}{" "}
             <a
@@ -39,31 +68,21 @@ const Footer = () => {
               Creative Tim
             </a>
           </div>
-        </Grid>
+        </Box>
 
         <Grid
           item
-          xs={12}
           xl={6}
           component={Box}
           display="flex"
           justifyContent="flex-end"
-          classes={{
-            root:
-              classes.justifyContentCenter + " " + classes.flexDirectionColumn,
-          }}
         >
           <Box
             component={List}
             display="flex"
             justifyContent="center"
             alignItems="center"
-            classes={{
-              root:
-                classes.justifyContentCenter +
-                " " +
-                classes.flexDirectionColumn,
-            }}
+            className={classes.flexDirectionColumn}
           >
             <ListItem
               component="a"
@@ -114,7 +133,7 @@ const Footer = () => {
             </ListItem>
           </Box>
         </Grid>
-      </Container>
+      </Grid>
     </Box>
   );
 };

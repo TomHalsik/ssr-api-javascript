@@ -18,7 +18,7 @@ import { persistStore } from "redux-persist";
 import { PersistGate } from "redux-persist/integration/react";
 import StickyFooter from "../components/Footer/Footer";
 import "../lib/styles/app.css";
-import AdminLayout from "../components/Layout/Admin";
+import Layout from "../components/Layout/Default";
 
 let persistor = persistStore(store);
 
@@ -46,8 +46,7 @@ class MyApp extends App<any, any> {
               />
             </Head>
             <CssBaseline />
-            <AdminLayout {...props} />
-            <StickyFooter />
+            <Layout {...props} />
           </ThemeProvider>
         </PersistGate>
       </Provider>

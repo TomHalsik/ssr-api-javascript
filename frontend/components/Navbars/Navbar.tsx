@@ -10,8 +10,10 @@ import Typography from "@material-ui/core/Typography";
 // @material-ui/icons components
 import SearchIcon from "@material-ui/icons/Search";
 
+import boxShadows from "../../lib/styles/box-shadow";
+
 // core components
-import NavbarDropdown from "../Dropdowns/NavbarDropdown.js";
+import NavbarDropdown from "../Dropdowns/NavbarDropdown";
 
 const useStyles = makeStyles((theme) => ({
   appBarRoot: {
@@ -20,15 +22,15 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   brandTitle: {
+    color: "white",
     textTransform: "uppercase",
     margin: "0",
-    color: theme.palette.white.main,
     [theme.breakpoints.down("md")]: {
       display: "none",
     },
   },
   searchBox: {
-    borderColor: theme.palette.adminNavbarSearch.main,
+    color: "white",
     borderRadius: "2rem",
     border: "2px solid",
     backgroundColor: "initial",
@@ -36,12 +38,12 @@ const useStyles = makeStyles((theme) => ({
     transition: "box-shadow .15s ease",
   },
   searchIcon: {
-    color: theme.palette.adminNavbarSearch.main,
+    color: "white",
     marginRight: "0.5rem",
     marginLeft: "1rem",
   },
   searchInput: {
-    color: theme.palette.adminNavbarSearch.main,
+    color: "white",
     width: "270px",
     backgroundColor: "initial",
     border: 0,
@@ -54,9 +56,9 @@ const useStyles = makeStyles((theme) => ({
       paddingRight: "39px",
     },
   },
-});
+}));
 
-export default function AdminNavbar({ brandText }) {
+export default function Navbar({ brandText }) {
   const classes = useStyles();
   return (
     <>

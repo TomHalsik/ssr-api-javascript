@@ -1,4 +1,4 @@
-import boxShadows from "../../box-shadow.js";
+import boxShadows from "../../../../lib/styles/box-shadow.js";
 
 const componentStyles = (theme) => ({
   cardRootBgGradient: {

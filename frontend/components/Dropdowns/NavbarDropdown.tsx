@@ -16,10 +16,50 @@ import LiveHelp from "@material-ui/icons/LiveHelp";
 import Person from "@material-ui/icons/Person";
 import Settings from "@material-ui/icons/Settings";
 
-// core components
-import componentStyles from "../../assets/theme/components/navbar-dropdown.js";
-
-const useStyles = makeStyles(componentStyles);
+const useStyles = makeStyles((theme) => ({
+  buttonRoot: {
+    padding: ".25rem 0 .25rem 1rem",
+    border: "0",
+    boxShadow: "none",
+    [theme.breakpoints.down("md")]: {
+      padding: "0",
+      minWidth: "unset",
+      borderRadius: "50%",
+    },
+  },
+  buttonLabel: {
+    fontSize: ".875rem",
+    fontWeight: "600",
+    color: theme.palette.primary.main,
+    textTransform: "capitalize",
+    display: "flex",
+    alignItems: "center",
+    [theme.breakpoints.down("md")]: {
+      padding: "0",
+    },
+  },
+  avatarRoot: {
+    width: "36px",
+    height: "36px",
+    marginRight: "0.5rem",
+    [theme.breakpoints.down("md")]: {
+      marginRight: "0",
+    },
+  },
+  dividerRoot: {
+    height: "0",
+    margin: ".5rem 0",
+    overflow: "hidden",
+    borderTop: "1px solid " + theme.palette.gray[200],
+  },
+  menuTitle: {
+    margin: "0",
+    textTransform: "uppercase",
+    display: "block",
+    padding: ".5rem 1rem",
+    whiteSpace: "nowrap",
+  },
+}));
 
 export default function NavbarDropdown() {
   const classes = useStyles();
@@ -54,72 +94,72 @@ export default function NavbarDropdown() {
         Welcome!
       </Typography>
       <Box
-        display="flex!important"
-        alignItems="center!important"
+        display="flex"
+        alignItems="center"
         component={MenuItem}
         onClick={handleMenuClose}
       >
         <Box
           component={Person}
-          width="1.25rem!important"
-          height="1.25rem!important"
+          width="1.25rem"
+          height="1.25rem"
           marginRight="1rem"
         />
         <span>My profile</span>
       </Box>
       <Box
-        display="flex!important"
-        alignItems="center!important"
+        display="flex"
+        alignItems="center"
         component={MenuItem}
         onClick={handleMenuClose}
       >
         <Box
           component={Settings}
-          width="1.25rem!important"
-          height="1.25rem!important"
+          width="1.25rem"
+          height="1.25rem"
           marginRight="1rem"
         />
         <span>Settings</span>
       </Box>
       <Box
-        display="flex!important"
-        alignItems="center!important"
+        display="flex"
+        alignItems="center"
         component={MenuItem}
         onClick={handleMenuClose}
       >
         <Box
           component={EventNote}
-          width="1.25rem!important"
-          height="1.25rem!important"
+          width="1.25rem"
+          height="1.25rem"
           marginRight="1rem"
         />
         <span>Activity</span>
       </Box>
       <Box
-        display="flex!important"
-        alignItems="center!important"
+        display="flex"
+        alignItems="center"
         component={MenuItem}
         onClick={handleMenuClose}
       >
         <Box
           component={LiveHelp}
-          width="1.25rem!important"
-          height="1.25rem!important"
+          width="1.25rem"
+          height="1.25rem"
           marginRight="1rem"
         />
         <span>Support</span>
       </Box>
       <Divider component="div" classes={{ root: classes.dividerRoot }} />
       <Box
-        display="flex!important"
-        alignItems="center!important"
+        display="flex"
+        alignItems="center"
         component={MenuItem}
         onClick={handleMenuClose}
       >
         <Box
           component={DirectionsRun}
-          width="1.25rem!important"
-          height="1.25rem!important"
+          width="1.25rem"
+          height="1.25rem"
           marginRight="1rem"
         />
         <span>Logout</span>
@@ -141,7 +181,15 @@ export default function NavbarDropdown() {
           root: classes.buttonRoot,
         }}
       >
-        <Hidden smDown>Jessica Jones</Hidden>
+        <Avatar
+          alt="..."
+          classes={{
+            root: classes.avatarRoot,
+          }}
+        />
+        <Hidden style={{ color: "white" }} smDown>
+          Jessica Jones
+        </Hidden>
       </Button>
       {renderMenu}
     </>

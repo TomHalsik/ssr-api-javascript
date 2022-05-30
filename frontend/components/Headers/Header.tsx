@@ -14,7 +14,7 @@ import InsertChartOutlined from "@material-ui/icons/InsertChartOutlined";
 import PieChart from "@material-ui/icons/PieChart";
 
 // core components
-import CardStats from "../Cards/CardStats.js";
+import CardStats from "../Cards/CardStats";
 
 const useStyles = makeStyles((theme) => ({
   header: {
@@ -46,7 +46,6 @@ const Header = () => {
           component={Box}
           classes={{ root: classes.containerRoot }}
         >
-          *EH OH
           <div>
             <Grid container>
               <Grid item xl={3} lg={6} xs={12}>

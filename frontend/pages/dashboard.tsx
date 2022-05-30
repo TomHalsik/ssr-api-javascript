@@ -22,11 +22,85 @@ import ArrowDownward from "@material-ui/icons/ArrowDownward";
 import ArrowUpward from "@material-ui/icons/ArrowUpward";
 
 // core components
-import Header from "../components/Headers/Header.js";
+import Header from "../components/Headers/Header";
+import boxShadows from "../lib/styles/box-shadow";
 
-import componentStyles from "../assets/theme/views/admin/dashboard.js";
-
-const useStyles = makeStyles(componentStyles);
+const useStyles = makeStyles((theme) => ({
+  cardRootBgGradient: {
+    background:
+      "linear-gradient(87deg," + theme.palette.dark.main + ",#1a174d)",
+  },
+  cardRoot: {
+    boxShadow: boxShadows.boxShadow + "",
+    border: "0",
+  },
+  cardHeaderRoot: {
+    backgroundColor: "initial",
+  },
+  textUppercase: {
+    textTransform: "uppercase",
+  },
+  containerRoot: {
+    [theme.breakpoints.up("md")]: {
+      paddingLeft: "39px",
+      paddingRight: "39px",
+    },
+  },
+  buttonRootUnselected: {
+    background: theme.palette.white.main + "",
+    color: theme.palette.primary.main + "",
+  },
+  gridItemRoot: {
+    [theme.breakpoints.up("xl")]: {
+      marginBottom: "0",
+    },
+  },
+  tableRoot: {
+    marginBottom: "0",
+  },
+  tableCellRoot: {
+    verticalAlign: "middle",
+    paddingLeft: "1.5rem",
+    paddingRight: "1.5rem",
+    borderTop: "0",
+  },
+  tableCellRootHead: {
+    backgroundColor: theme.palette.gray[100],
+    color: theme.palette.gray[600],
+  },
+  tableCellRootBodyHead: {
+    textTransform: "unset",
+    fontSize: ".8125rem",
+  },
+  borderBottomUnset: {
+    borderBottom: "0",
+  },
+  linearProgressRoot: {
+    height: "3px",
+    width: "120px",
+    margin: "0",
+  },
+  bgGradientError: {
+    background:
+      "linear-gradient(87deg," + theme.palette.error.main + ",#f56036)",
+  },
+  bgGradientSuccess: {
+    background:
+      "linear-gradient(87deg," + theme.palette.success.main + ",#2dcecc)",
+  },
+  bgGradientPrimary: {
+    background:
+      "linear-gradient(87deg," + theme.palette.primary.main + ",#825ee4)",
+  },
+  bgGradientInfo: {
+    background:
+      "linear-gradient(87deg," + theme.palette.info.main + ",#1171ef)",
+  },
+  bgGradientWarning: {
+    background:
+      "linear-gradient(87deg," + theme.palette.warning.main + ",#fbb140)",
+  },
+}));
 
 function Dashboard() {
   const classes = useStyles();
@@ -52,7 +126,7 @@ function Dashboard() {
             xs={12}
             xl={8}
             component={Box}
-            marginBottom="3rem!important"
+            marginBottom="3rem"
             classes={{ root: classes.gridItemRoot }}
           >
             <Card
@@ -73,18 +147,14 @@ function Dashboard() {
                         component={Typography}
                         variant="h6"
                         letterSpacing=".0625rem"
-                        marginBottom=".25rem!important"
+                        marginBottom=".25rem"
                         className={classes.textUppercase}
                       >
                         <Box component="span" color={theme.palette.gray[400]}>
                           Overview
                         </Box>
                       </Box>
-                      <Box
-                        component={Typography}
-                        variant="h2"
-                        marginBottom="0!important"
-                      >
+                      <Box component={Typography} variant="h2" marginBottom="0">
                         <Box component="span" color={theme.palette.white.main}>
                           Sales value
                         </Box>
@@ -100,7 +170,7 @@ function Dashboard() {
                           variant="contained"
                           color="primary"
                           component={Box}
-                          marginRight="1rem!important"
+                          marginRight="1rem"
                           onClick={() => toggleNavs(1)}
                           classes={{
                             root:
@@ -149,7 +219,7 @@ function Dashboard() {
                   component: Box,
                   variant: "h6",
                   letterSpacing: ".0625rem",
-                  marginBottom: ".25rem!important",
+                  marginBottom: ".25rem",
                   classes: {
                     root: classes.textUppercase,
                   },
@@ -157,7 +227,7 @@ function Dashboard() {
                 subheaderTypographyProps={{
                   component: Box,
                   variant: "h2",
-                  marginBottom: "0!important",
+                  marginBottom: "0",
                   color: "initial",
                 }}
               ></CardHeader>
@@ -173,7 +243,7 @@ function Dashboard() {
             xs={12}
             xl={8}
             component={Box}
-            marginBottom="3rem!important"
+            marginBottom="3rem"
             classes={{ root: classes.gridItemRoot }}
           >
             <Card
@@ -190,11 +260,7 @@ function Dashboard() {
                     justifyContent="space-between"
                   >
                     <Grid item xs="auto">
-                      <Box
-                        component={Typography}
-                        variant="h3"
-                        marginBottom="0!important"
-                      >
+                      <Box component={Typography} variant="h3" marginBottom="0">
                         Page visits
                       </Box>
                     </Grid>
@@ -218,11 +284,7 @@ function Dashboard() {
                 classes={{ root: classes.cardHeaderRoot }}
               ></CardHeader>
               <TableContainer>
-                <Box
-                  component={Table}
-                  alignItems="center"
-                  marginBottom="0!important"
-                >
+                <Box component={Table} alignItems="center" marginBottom="0">
                   <TableHead>
                     <TableRow>
                       <TableCell
@@ -295,8 +357,8 @@ function Dashboard() {
                       >
                         <Box
                           component={ArrowUpward}
-                          width="1rem!important"
-                          height="1rem!important"
+                          width="1rem"
+                          height="1rem"
                           marginRight="1rem"
                           color={theme.palette.success.main}
                         />
@@ -330,8 +392,8 @@ function Dashboard() {
                       >
                         <Box
                           component={ArrowDownward}
-                          width="1rem!important"
-                          height="1rem!important"
+                          width="1rem"
+                          height="1rem"
                           marginRight="1rem"
                           color={theme.palette.warning.main}
                         />
@@ -365,8 +427,8 @@ function Dashboard() {
                       >
                         <Box
                           component={ArrowDownward}
-                          width="1rem!important"
-                          height="1rem!important"
+                          width="1rem"
+                          height="1rem"
                           marginRight="1rem"
                           color={theme.palette.warning.main}
                         />
@@ -400,8 +462,8 @@ function Dashboard() {
                       >
                         <Box
                           component={ArrowUpward}
-                          width="1rem!important"
-                          height="1rem!important"
+                          width="1rem"
+                          height="1rem"
                           marginRight="1rem"
                           color={theme.palette.success.main}
                         />
@@ -455,8 +517,8 @@ function Dashboard() {
                       >
                         <Box
                           component={ArrowDownward}
-                          width="1rem!important"
-                          height="1rem!important"
+                          width="1rem"
+                          height="1rem"
                           marginRight="1rem"
                           color={theme.palette.error.main}
                         />
@@ -479,11 +541,7 @@ function Dashboard() {
                     justifyContent="space-between"
                   >
                     <Grid item xs="auto">
-                      <Box
-                        component={Typography}
-                        variant="h3"
-                        marginBottom="0!important"
-                      >
+                      <Box component={Typography} variant="h3" marginBottom="0">
                         Social traffic
                       </Box>
                     </Grid>
@@ -507,11 +565,7 @@ function Dashboard() {
                 classes={{ root: classes.cardHeaderRoot }}
               ></CardHeader>
               <TableContainer>
-                <Box
-                  component={Table}
-                  alignItems="center"
-                  marginBottom="0!important"
-                >
+                <Box component={Table} alignItems="center" marginBottom="0">
                   <TableHead>
                     <TableRow>
                       <TableCell
