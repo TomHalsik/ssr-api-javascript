@@ -9,6 +9,9 @@
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx --fix"
   },
   "dependencies": {
+    "@mantine/core": "^4.2.7",
+    "@mantine/hooks": "^4.2.7",
+    "@mantine/next": "^4.2.7",
     "@material-ui/core": "^4.12.4",
     "@material-ui/icons": "^4.11.3",
     "@material-ui/styles": "^4.11.5",

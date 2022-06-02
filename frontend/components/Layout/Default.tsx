@@ -1,89 +1,103 @@
-import React from "react";
-// @material-ui/core components
-import { makeStyles } from "@material-ui/core/styles";
-import Box from "@material-ui/core/Box";
-import FormControl from "@material-ui/core/FormControl";
-import InputAdornment from "@material-ui/core/InputAdornment";
-import InputLabel from "@material-ui/core/InputLabel";
-import OutlinedInput from "@material-ui/core/OutlinedInput";
-import Container from "@material-ui/core/Container";
-// @material-ui/icons components
-import Search from "@material-ui/icons/Search";
-
-// core components
-import Sidebar from "../Sidebar/Sidebar";
-import NavbarDropdown from "../Dropdowns/NavbarDropdown";
-import Navbar from "../Navbars/Navbar";
-import Footer from "../Footers/Footer";
-
-import routes from "../../lib/routes/routes";
-
-const useStyles = makeStyles((theme) => ({
-  mainContent: {
-    marginLeft: "250px",
-    [theme.breakpoints.down("md")]: {
-      marginLeft: "0px",
-    },
-  },
-  containerRoot: {
-    [theme.breakpoints.up("md")]: {
-      paddingLeft: "39px",
-      paddingRight: "39px",
-    },
-  },
-}));
+import React, { useState } from "react";
+import {
+  AppShell,
+  Navbar,
+  Header,
+  Footer,
+  Aside,
+  Text,
+  MediaQuery,
+  Burger,
+  useMantineTheme,
+  Button,
+  MantineProvider,
+  ColorSchemeProvider,
+  ColorScheme,
+} from "@mantine/core";
 
 const Default = (props) => {
-  const classes = useStyles();
   const { Component, pageProps } = props;
+  const theme = useMantineTheme();
 
-  React.useEffect(() => {
-    document.documentElement.scrollTop = 0;
-    document.scrollingElement.scrollTop = 0;
-    // mainContent.current.scrollTop = 0;
-  });
-
+  const [opened, setOpened] = useState(false);
+  const [colorScheme, setColorScheme] = useState<ColorScheme>("light");
+  const toggleColorScheme = (value?: ColorScheme) =>
+    setColorScheme(value || (colorScheme === "dark" ? "light" : "dark"));
   return (
-    <>
-      <Sidebar
-        routes={routes}
-        dropdown={<NavbarDropdown />}
-        input={
-          <FormControl variant="outlined" fullWidth>
-            <InputLabel htmlFor="outlined-adornment-search-responsive">
-              Search
-            </InputLabel>
-            <OutlinedInput
-              id="outlined-adornment-search-responsive"
-              type="text"
-              endAdornment={
-                <InputAdornment position="end">
-                  <Box
-                    component={Search}
-                    width="1.25rem!important"
-                    height="1.25rem!important"
+    <ColorSchemeProvider
+      colorScheme={colorScheme}
+      toggleColorScheme={toggleColorScheme}
+    >
+      <MantineProvider
+        theme={{ colorScheme }}
+        withGlobalStyles
+        withNormalizeCSS
+      >
+        <AppShell
+          navbarOffsetBreakpoint="sm"
+          asideOffsetBreakpoint="sm"
+          fixed
+          navbar={
+            <Navbar
+              p="md"
+              hiddenBreakpoint="sm"
+              hidden={!opened}
+              width={{ sm: 200, lg: 300 }}
+            >
+              <Text>Application navbar</Text>
+            </Navbar>
+          }
+          aside={
+            <MediaQuery smallerThan="sm" styles={{ display: "none" }}>
+              <Aside p="md" hiddenBreakpoint="sm" width={{ sm: 200, lg: 300 }}>
+                <Text>Application sidebar</Text>
+              </Aside>
+            </MediaQuery>
+          }
+          footer={
+            <Footer height={60} p="md">
+              Application footer
+            </Footer>
+          }
+          header={
+            <Header height={70} p="md">
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  height: "100%",
+                }}
+              >
+                <MediaQuery largerThan="sm" styles={{ display: "none" }}>
+                  <Burger
+                    opened={opened}
+                    onClick={() => setOpened((o) => !o)}
+                    size="sm"
+                    color={theme.colors.gray[6]}
+                    mr="xl"
                   />
-                </InputAdornment>
-              }
-              labelWidth={70}
-            />
-          </FormControl>
-        }
-      />
-      <Box position="relative" className={classes.mainContent}>
-        <Navbar brandText={"test"} />
-      </Box>
-      <div className={classes.mainContent}>
-        <Component {...pageProps} />
-        <Container
-          maxWidth={false}
-          component={Box}
-          classes={{ root: classes.containerRoot }}
+                </MediaQuery>
+
+                <Button variant="default" onClick={() => toggleColorScheme()}>
+                  switch
+                </Button>
+              </div>
+            </Header>
+          }
+          styles={(theme) => ({
+            main: {
+              backgroundColor:
+                theme.colorScheme === "dark"
+                  ? theme.colors.dark[8]
+                  : theme.colors.gray[0],
+            },
+          })}
         >
-          <Footer />
-        </Container>
-      </div>
-    </>
+          <Text>Resize app to see responsive navbar in action</Text>
+          <Component {...pageProps} />
+        </AppShell>
+      </MantineProvider>
+    </ColorSchemeProvider>
   );
 };
 
